@@ -15,14 +15,28 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+        $(document).ready(function () {
+            checkLogin()
+        })
+
+        function checkLogin() {
+            $.get("http://localhost:8080/writeServlet", null, function (response) {
+                if(response == 0){
+                    console.log(response)
+                    alert("로그인 후 이용할 수 있습니다.")
+                    location.href = "Login.jsp"
+                }
+            })
+        }
+
         function save() {
             let params = {
                 title : $("input[name = 'title']").val(),
                 content : $("textarea[name = 'content']").val(),
-                writer : $("input[name = 'writer']").val()
             }
 
             $.post("http://localhost:8080/writeServlet", params, function (response) {
+                console.log(response.toString())
                 location.href = "list.html"
             })
         }
@@ -38,10 +52,6 @@
     <div>
         <label>내용</label>
         <textarea name="content"></textarea>
-    </div>
-    <div>
-        <label>글쓴이</label>
-        <input type="text" name="writer">
     </div>
     <div>
         <button onclick="save()">저장</button>
