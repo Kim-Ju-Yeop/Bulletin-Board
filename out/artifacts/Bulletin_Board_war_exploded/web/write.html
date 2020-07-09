@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 글쓰기</title>
+    <style>
+        div{
+            padding: 5px;
+        }
+
+        label{
+            display: inline-block;
+            width: 70px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function save() {
+            let params = {
+                title : $("input[name = 'title']").val(),
+                content : $("textarea[name = 'content']").val(),
+                writer : $("input[name = 'writer']").val()
+            }
+
+            $.post("http://localhost:8080/writeServlet", params, function (response) {
+                location.href = "list.html"
+            })
+        }
+    </script>
+</head>
+<body>
+    <h1>게시판 글쓰기</h1>
+
+    <div>
+        <label>제목</label>
+        <input type="text" name="title">
+    </div>
+    <div>
+        <label>내용</label>
+        <textarea name="content"></textarea>
+    </div>
+    <div>
+        <label>글쓴이</label>
+        <input type="text" name="writer">
+    </div>
+    <div>
+        <button onclick="save()">저장</button>
+    </div>
+</body>
+</html>

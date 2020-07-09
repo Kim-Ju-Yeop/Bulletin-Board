@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        th, td{
+            border: 1px solid #CCC;
+            padding: 3px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            readList()
+        })
+
+        function readList() {
+            $.get("http://localhost:8080/listServlet", null, function (response) {
+                showData(response)
+            })
+        }
+
+        function showData(list) {
+            $("#list_body").empty();
+
+            for(let i in list){
+                showLine(list[i])
+            }
+        }
+
+        function showLine(data) {
+            var tr = $("<tr />");
+            var tdId = $("<td />");
+            var tdHit = $("<td />");
+            var tdTitle = $("<td />");
+            var tdWriter = $("<td />");
+
+            var aTag = $("<a />");
+            aTag.html(data.title);
+            aTag.prop("href", "http://localhost:8080/web_study/class07_02/read.jsp?sequence=" + data.sequence);
+
+            tdId.html(data.id);
+            tdHit.html(data.hit);
+            tdTitle.append(aTag);
+            tdWriter.html(data.writer);
+
+            tr.append(tdId);
+            tr.append(tdHit);
+            tr.append(tdTitle);
+            tr.append(tdWriter);
+
+            $("#list_body").append(tr);
+        }
+    </script>
+</head>
+<body>
+    <h1>게시판</h1>
+
+    <div style="text-align: right">
+        <a href="write.html"><button>글쓰기</button></a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 100px">글번호</th>
+                <th style="width: 100px">좋아요</th>
+                <th style="width: 500px">제목</th>
+                <th style="width: 200px">글쓴이</th>
+            </tr>
+        </thead>
+        <tbody id="list_body">
+            <tr>
+                <td>1</td>
+                <td>0</td>
+                <td>코로나 예방법</td>
+                <td>정은경</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>0</td>
+                <td>코로나 예방법</td>
+                <td>정은경</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>0</td>
+                <td>코로나 예방법</td>
+                <td>정은경</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

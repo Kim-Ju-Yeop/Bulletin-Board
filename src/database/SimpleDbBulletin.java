@@ -33,7 +33,7 @@ public class SimpleDbBulletin {
                 sql.append("content, ");
                 sql.append("writer ");
                 sql.append("FROM bulletin ");
-                sql.append("ORDER BY sequence DESC ");
+                sql.append("ORDER BY id DESC ");
 
                 PreparedStatement pstmt = con.prepareStatement(sql.toString());
                 ResultSet rs = pstmt.executeQuery();
