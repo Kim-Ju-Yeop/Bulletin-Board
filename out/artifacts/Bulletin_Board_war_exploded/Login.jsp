@@ -1,3 +1,4 @@
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String cookieId = null;
@@ -18,7 +19,7 @@
     }
 
     if("1234".equals(pw)){
-        Cookie cookie = new Cookie("cookieId", id);
+        Cookie cookie = new Cookie("cookieId", URLEncoder.encode(id, "UTF-8"));
         response.addCookie(cookie);
         response.sendRedirect("list.html");
     }

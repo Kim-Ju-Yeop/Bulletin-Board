@@ -1,3 +1,4 @@
+<%@ page import="java.net.URLDecoder" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
@@ -8,7 +9,7 @@
 
     for (Cookie cookie : cookies) {
         if ("cookieId".equals(cookie.getName())) {
-            cookieId = cookie.getValue();
+            cookieId = URLDecoder.decode(cookie.getValue(), "UTF-8");
             break;
         }
     }
@@ -48,11 +49,29 @@
             $("#title").html(writing.title);
             $("#content").html(writing.content);
             $("#writer").html(writing.writer);
+            $("#hitCount").html(writing.hit);
 
-            if(writing.writer.toString() != '<%=cookieId%>'){
+            if('<%=cookieId%>' != null){
+                if(writing.writer.toString() != '<%=cookieId%>'){
+                    document.getElementById("edit").style.display = 'none'
+                    document.getElementById("delete").style.display = 'none'
+                }
+            }else{
                 document.getElementById("edit").style.display = 'none'
                 document.getElementById("delete").style.display = 'none'
+                document.getElementById("hit").style.display = 'none'
             }
+        }
+
+        function deleteList(){
+            let params = {
+                id : <%= id %>,
+            }
+
+            $.get("http://localhost:8080/deleteServlet", params, function (response) {
+                alert("정상적으로 삭제되었습니다.")
+                location.href = "list.html";
+            })
         }
     </script>
 </head>
@@ -75,9 +94,14 @@
     </div>
 
     <div>
+        <label>좋아요 갯수</label>
+        <span id="hitCount">홍길동</span>
+    </div>
+
+    <div>
         <a href="http://localhost:8080/modify.jsp?id=<%=id%>"><input type="button" value="수정하기" id="edit"></a>
-        <input type="button" value="삭제하기" id="delete">
-        <input type="button" value="좋아요" id="good">
+        <input type="button" value="삭제하기" id="delete" onclick="deleteList()">
+        <input type="button" value="좋아요" id="hit">
     </div>
 </body>
 </html>

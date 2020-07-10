@@ -125,6 +125,23 @@ public class SimpleDbBulletin {
         });
     }
 
+    public void deleteList(int id) throws Exception{
+        defaultDb(new JdbcStrategy() {
+            @Override
+            public PreparedStatement makePreparedStatement(Connection con) throws SQLException {
+                StringBuilder sql = new StringBuilder();
+                sql.append("DELETE ");
+                sql.append("FROM bulletin ");
+                sql.append("WHERE id = ? ");
+
+                PreparedStatement pstmt = con.prepareStatement(sql.toString());
+                pstmt.setInt(1, id);
+
+                return pstmt;
+            }
+        });
+    }
+
     public int getId() throws Exception{
         int[] id = new int[1];
 

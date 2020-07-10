@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLDecoder;
 
 @WebServlet(name = "WriteServlet", urlPatterns = "/writeServlet")
 public class WriteServlet extends HttpServlet {
@@ -20,7 +21,8 @@ public class WriteServlet extends HttpServlet {
 
         for(Cookie cookie : cookies){
             if ("cookieId".equals(cookie.getName())) {
-                cookieId = cookie.getValue();
+                cookieId = URLDecoder.decode(cookie.getValue(), "UTF-8");
+                System.out.println(cookieId);
                 break;
             }
         }
@@ -48,7 +50,7 @@ public class WriteServlet extends HttpServlet {
 
         for (Cookie cookie : cookies) {
             if ("cookieId".equals(cookie.getName())) {
-                cookieId = cookie.getValue();
+                cookieId = URLDecoder.decode(cookie.getValue(), "UTF-8");
                 break;
             }
         }
