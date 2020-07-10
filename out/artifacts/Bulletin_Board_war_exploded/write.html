@@ -22,7 +22,6 @@
         function checkLogin() {
             $.get("http://localhost:8080/writeServlet", null, function (response) {
                 if(response == 0){
-                    console.log(response)
                     alert("로그인 후 이용할 수 있습니다.")
                     location.href = "Login.jsp"
                 }
@@ -36,7 +35,6 @@
             }
 
             $.post("http://localhost:8080/writeServlet", params, function (response) {
-                console.log(response.toString())
                 location.href = "list.html"
             })
         }

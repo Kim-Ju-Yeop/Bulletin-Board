@@ -19,7 +19,7 @@ public class WriteServlet extends HttpServlet {
         Cookie[] cookies = request.getCookies();
 
         for(Cookie cookie : cookies){
-            if ("sessionId".equals(cookie.getName())) {
+            if ("cookieId".equals(cookie.getName())) {
                 cookieId = cookie.getValue();
                 break;
             }
@@ -47,14 +47,13 @@ public class WriteServlet extends HttpServlet {
         Cookie[] cookies = request.getCookies();
 
         for (Cookie cookie : cookies) {
-            if ("sessionId".equals(cookie.getName())) {
+            if ("cookieId".equals(cookie.getName())) {
                 cookieId = cookie.getValue();
                 break;
             }
         }
 
         if(cookieId == null){
-            response.setCharacterEncoding("charset=UTF-8");
             response.getWriter().print(0);
         }else{
             response.getWriter().print(1);

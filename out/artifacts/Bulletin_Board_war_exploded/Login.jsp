@@ -7,7 +7,7 @@
     String pw = request.getParameter("pw");
 
     for(Cookie cookie : cookies){
-        if ("sessionId".equals(cookie.getName())) {
+        if ("cookieId".equals(cookie.getName())) {
             cookieId = cookie.getValue();
             break;
         }
@@ -18,7 +18,7 @@
     }
 
     if("1234".equals(pw)){
-        Cookie cookie = new Cookie("sessionId", id);
+        Cookie cookie = new Cookie("cookieId", id);
         response.addCookie(cookie);
         response.sendRedirect("list.html");
     }
