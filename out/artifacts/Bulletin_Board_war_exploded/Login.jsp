@@ -20,9 +20,6 @@
     if("1234".equals(pw)){
         Cookie cookie = new Cookie("cookieId", id);
         response.addCookie(cookie);
-
-        System.out.println(cookie.getValue());
-        System.out.println();
         response.sendRedirect("list.html");
     }
 %>
@@ -37,15 +34,16 @@
         </style>
     </head>
     <body>
+        <h1>로그인 화면</h1>
         <div>
             <form method="post" action="Login.jsp">
-                <p>ID</p>
+                <p>아이디</p>
                 <input type="text" name="id">
                 <p>비밀번호</p>
                 <input type="password" name="pw"><br><br>
                 <button>로그인</button>
             </form>
-            <a href="list.html"><button>로그인없이 이용하기</button></a>
         </div>
+        <button onclick="location.href = 'list.html'">로그인없이 이용하기</button>
     </body>
 </html>
