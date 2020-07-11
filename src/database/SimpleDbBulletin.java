@@ -272,4 +272,21 @@ public class SimpleDbBulletin {
             }
         });
     }
+
+    public void deleteHitUserList(int id) throws Exception{
+        defaultDb(new JdbcStrategy() {
+            @Override
+            public PreparedStatement makePreparedStatement(Connection con) throws SQLException {
+                StringBuilder sql = new StringBuilder();
+                sql.append("DELETE ");
+                sql.append("FROM bulletin_good ");
+                sql.append("WHERE bulletin_id = ? ");
+
+                PreparedStatement pstmt = con.prepareStatement(sql.toString());
+                pstmt.setInt(1, id);
+
+                return pstmt;
+            }
+        });
+    }
 }
