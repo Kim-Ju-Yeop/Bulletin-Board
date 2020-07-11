@@ -13,17 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ReadServlet", urlPatterns = "/readServlet")
-public class ReadServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+@WebServlet(name = "GetHitUserServlet", urlPatterns = "/getHitUserServlet")
+public class GetHitUserServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
             int id = Integer.parseInt(request.getParameter("id"));
 
             SimpleDbBulletin simpleDbBulletin = new SimpleDbBulletin();
-            BulletinModel model = simpleDbBulletin.getList(id);
+            List<BulletinGoodModel> list = simpleDbBulletin.getHitUserList(id);
 
             Gson gson = new Gson();
-            String jsonString = gson.toJson(model);
+            String jsonString = gson.toJson(list);
 
             response.setContentType("application/json; charset=UTF-8");
             response.getWriter().print(jsonString);
