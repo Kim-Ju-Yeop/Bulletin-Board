@@ -9,7 +9,7 @@
 
     for (Cookie cookie : cookies) {
         if ("cookieId".equals(cookie.getName())) {
-            cookieId = URLDecoder.decode(cookie.getValue(), "UTF-8");
+            cookieId = cookie.getValue();
             break;
         }
     }
@@ -33,6 +33,7 @@
     <script>
         $(document).ready(function() {
             readWriting();
+            readHitUser();
         });
 
         function readWriting() {
@@ -73,6 +74,28 @@
                 location.href = "list.html";
             })
         }
+
+        function readHitUser(){
+            let params = {
+                id : <%= id %>,
+            }
+
+            $.get("http://localhost:8080/readServlet", params, function(response) {
+                showHitUser(response)
+            });
+        }
+
+        function showHitUser(list){
+            $("#hitUser").empty()
+            if(list.length == 0){
+                $("#hitUser").html("현재 좋아요를 누른 사람이 아무도 없습니다.");
+            }else{
+                for(let i in list){
+                    $("#hitUser").append(list[i].writerId + " ")
+                }
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -95,7 +118,12 @@
 
     <div>
         <label>좋아요 갯수</label>
-        <span id="hitCount">홍길동</span>
+        <span id="hitCount">0</span>
+    </div>
+
+    <div>
+        <label>좋아요 누른 사용자</label>
+        <span id="hitUser">홍길동</span>
     </div>
 
     <div>

@@ -1,9 +1,11 @@
 package database;
 
+import model.BulletinGoodModel;
 import model.BulletinModel;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SimpleDbBulletin {
@@ -218,5 +220,38 @@ public class SimpleDbBulletin {
                 return pstmt;
             }
         });
+    }
+
+    public List<BulletinGoodModel> getHitUserList(int id) throws Exception{
+        List<BulletinGoodModel> list = new ArrayList<>();
+
+        defaultDb(new JdbcStrategy() {
+            @Override
+            public PreparedStatement makePreparedStatement(Connection con) throws SQLException {
+                StringBuilder sql = new StringBuilder();
+                sql.append("SELECT ");
+                sql.append("bulletin_id, ");
+                sql.append("writer_id, ");
+                sql.append("hit_time ");
+                sql.append("FROM bulletin_good ");
+                sql.append("WHERE bulletin_id LIKE ?");
+
+                PreparedStatement pstmt = con.prepareStatement(sql.toString());
+                pstmt.setString(1, String.valueOf(id));
+
+                ResultSet rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    int bulletin_id = rs.getInt("bulletin_id");
+                    String writer_id = rs.getString("writer_id");
+                    Date hit_time = rs.getDate("hit_time");
+
+                    BulletinGoodModel listModel = new BulletinGoodModel(bulletin_id, writer_id, hit_time);
+                    list.add(listModel);
+                }
+                return pstmt;
+            }
+        });
+        return list;
     }
 }

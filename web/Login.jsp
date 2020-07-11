@@ -19,8 +19,11 @@
     }
 
     if("1234".equals(pw)){
-        Cookie cookie = new Cookie("cookieId", URLEncoder.encode(id, "UTF-8"));
+        Cookie cookie = new Cookie("cookieId", id);
         response.addCookie(cookie);
+
+        System.out.println(cookie.getValue());
+        System.out.println();
         response.sendRedirect("list.html");
     }
 %>
