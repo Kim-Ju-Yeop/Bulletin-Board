@@ -14,10 +14,6 @@ import java.util.List;
 
 @WebServlet(name = "ListServlet", urlPatterns = "/listServlet")
 public class ListServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
             SimpleDbBulletin simpleDbBulletin = new SimpleDbBulletin();
@@ -28,6 +24,6 @@ public class ListServlet extends HttpServlet {
 
             response.setContentType("application/json; charset=UTF-8");
             response.getWriter().print(jsonString);
-        }catch (Exception e){e.printStackTrace();}
+        }catch (Exception e){ e.printStackTrace(); }
     }
 }
