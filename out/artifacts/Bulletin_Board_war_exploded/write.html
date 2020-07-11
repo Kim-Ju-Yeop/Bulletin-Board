@@ -1,58 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>게시판 글쓰기</title>
-    <style>
-        div{
-            padding: 5px;
-        }
-
-        label{
-            display: inline-block;
-            width: 70px;
-        }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            checkLogin()
-        })
-
-        function checkLogin() {
-            $.get("http://localhost:8080/writeServlet", null, function (response) {
-                if(response == 0){
-                    alert("로그인 후 이용할 수 있습니다.")
-                    location.href = "Login.jsp"
-                }
+    <head>
+        <meta charset="UTF-8">
+        <title>글 작성하기 화면</title>
+        <style>
+            div{
+                padding: 5px;
+            }
+            label{
+                display: inline-block;
+                width: 70px;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                checkLogin()
             })
-        }
 
-        function save() {
-            let params = {
-                title : $("input[name = 'title']").val(),
-                content : $("textarea[name = 'content']").val(),
+            function checkLogin() {
+                $.get("http://localhost:8080/checkLoginServlet", null, function (response) {
+                    if(response == 0){
+                        alert("로그인 과정을 거친 후 글 작성이 가능합니다.")
+                        location.href = "Login.jsp"
+                    }
+                })
             }
 
-            $.post("http://localhost:8080/writeServlet", params, function (response) {
-                location.href = "list.html"
-            })
-        }
-    </script>
-</head>
-<body>
-    <h1>게시판 글쓰기</h1>
+            function writeList() {
+                let params = {
+                    title : $("input[id = 'title']").val(),
+                    content : $("textarea[id = 'content']").val(),
+                }
 
-    <div>
-        <label>제목</label>
-        <input type="text" name="title">
-    </div>
-    <div>
-        <label>내용</label>
-        <textarea name="content"></textarea>
-    </div>
-    <div>
-        <button onclick="save()">저장</button>
-    </div>
-</body>
+                $.post("http://localhost:8080/writeServlet", params, function (response) {
+                    alert("글 작성을 정상적으로 수행하였습니다.")
+                    location.href = "list.html"
+                })
+            }
+        </script>
+    </head>
+    <body>
+        <h1>글 작성하기 화면</h1>
+        <div>
+            <label>제목</label>
+            <input type="text" id="title">
+        </div>
+        <div>
+            <label>내용</label>
+            <textarea id="content"></textarea>
+        </div>
+        <div>
+            <button onclick="writeList()">저장</button>
+        </div>
+    </body>
 </html>
