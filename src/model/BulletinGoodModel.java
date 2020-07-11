@@ -1,13 +1,13 @@
 package model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class BulletinGoodModel {
     public int bulletinId;
     public String writerId;
-    public Date hitTime;
+    public Timestamp hitTime;
 
-    public BulletinGoodModel(int bulletinId, String writerId, Date hitTime) {
+    public BulletinGoodModel(int bulletinId, String writerId, Timestamp hitTime) {
         this.bulletinId = bulletinId;
         this.writerId = writerId;
         this.hitTime = hitTime;

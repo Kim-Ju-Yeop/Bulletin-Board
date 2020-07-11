@@ -92,8 +92,24 @@
             }else{
                 for(let i in list){
                     $("#hitUser").append(list[i].writerId + " ")
+
+                    if(list[i].writerId == ('<%=cookieId%>')){
+                        document.getElementById("hit").style.display = 'none'
+                    }
                 }
             }
+        }
+
+        function addHit(){
+            let params = {
+                id : <%= id %>,
+                cookieId : '<%=cookieId%>'
+            }
+
+            $.post("http://localhost:8080/hitServlet", params, function (response) {
+                console.log("성공")
+            })
+
         }
 
     </script>
@@ -129,7 +145,7 @@
     <div>
         <a href="http://localhost:8080/modify.jsp?id=<%=id%>"><input type="button" value="수정하기" id="edit"></a>
         <input type="button" value="삭제하기" id="delete" onclick="deleteList()">
-        <input type="button" value="좋아요" id="hit">
+        <input type="button" value="좋아요" id="hit" onclick="addHit()">
     </div>
 </body>
 </html>

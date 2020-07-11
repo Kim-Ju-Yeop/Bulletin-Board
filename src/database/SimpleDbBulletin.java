@@ -5,7 +5,7 @@ import model.BulletinModel;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public class SimpleDbBulletin {
@@ -244,7 +244,7 @@ public class SimpleDbBulletin {
                 while (rs.next()) {
                     int bulletin_id = rs.getInt("bulletin_id");
                     String writer_id = rs.getString("writer_id");
-                    Date hit_time = rs.getDate("hit_time");
+                    Timestamp hit_time = rs.getTimestamp("hit_time");
 
                     BulletinGoodModel listModel = new BulletinGoodModel(bulletin_id, writer_id, hit_time);
                     list.add(listModel);
@@ -253,5 +253,23 @@ public class SimpleDbBulletin {
             }
         });
         return list;
+    }
+
+    public void writeHitList(BulletinGoodModel model) throws Exception{
+        defaultDb(new JdbcStrategy() {
+            @Override
+            public PreparedStatement makePreparedStatement(Connection con) throws SQLException {
+                StringBuilder sql = new StringBuilder();
+                sql.append("INSERT INTO bulletin_good ");
+                sql.append("(bulletin_id, writer_id, hit_time) ");
+                sql.append("VALUES (?, ?, ?) ");
+
+                PreparedStatement pstmt = con.prepareStatement(sql.toString());
+                pstmt.setInt(1, model.bulletinId);
+                pstmt.setString(2, model.writerId);
+                pstmt.setObject(3, model.hitTime);
+                return pstmt;
+            }
+        });
     }
 }
