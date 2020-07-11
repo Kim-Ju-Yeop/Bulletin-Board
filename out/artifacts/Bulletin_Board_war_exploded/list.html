@@ -55,13 +55,22 @@
 
             $("#list_body").append(tr);
         }
+
+        function logout() {
+            $.get("http://localhost:8080/logoutServlet", null, function (response) {
+                alert("로그인 화면으로 이동합니다.")
+                location.href = "Login.jsp"
+            })
+        }
+
     </script>
 </head>
 <body>
     <h1>게시판</h1>
 
     <div style="text-align: right">
-        <a href="write.html"><button>글쓰기</button></a>
+        <button onclick="location.href = 'write.html'">글쓰기</button>
+        <button onclick="logout()">로그인 및 로그아웃</button>
     </div>
 
     <table>

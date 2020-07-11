@@ -52,7 +52,7 @@
             $("#writer").html(writing.writer);
             $("#hitCount").html(writing.hit);
 
-            if('<%=cookieId%>' != null){
+            if('<%=cookieId%>' !== 'null'){
                 if(writing.writer.toString() != '<%=cookieId%>'){
                     document.getElementById("edit").style.display = 'none'
                     document.getElementById("delete").style.display = 'none'
@@ -107,7 +107,7 @@
             }
 
             $.post("http://localhost:8080/hitServlet", params, function (response) {
-                console.log("성공")
+                location.reload()
             })
 
         }
