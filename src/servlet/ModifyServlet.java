@@ -13,10 +13,6 @@ import java.io.IOException;
 @WebServlet(name = "ModifyServlet", urlPatterns = "/modify")
 public class ModifyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
             int id = Integer.parseInt(request.getParameter("id"));
             int hit = 0;
@@ -28,12 +24,6 @@ public class ModifyServlet extends HttpServlet {
 
             SimpleDbBulletin bulletin = new SimpleDbBulletin();
             bulletin.updateList(model);
-
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().print("정상적으로 수정되었습니다.");
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        }catch (Exception e){ e.printStackTrace(); }
     }
 }
