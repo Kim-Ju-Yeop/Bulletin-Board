@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-@WebServlet(name = "AddHitServlet", urlPatterns = "/addHitServlet")
-public class AddHitServlet extends HttpServlet {
+@WebServlet(name = "AddGoodServlet", urlPatterns = "/addGoodServlet")
+public class AddGoodServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
             int id = Integer.parseInt(request.getParameter("id"));
@@ -22,12 +22,9 @@ public class AddHitServlet extends HttpServlet {
             Timestamp timestamp = new Timestamp(date.getTime());
 
             SimpleDbBulletin simpleDbBulletin = new SimpleDbBulletin();
-
-            int hit = simpleDbBulletin.getHit(id);
-            simpleDbBulletin.updateHit(hit, id);
-
             BulletinGoodModel model = new BulletinGoodModel(id, cookieId, timestamp);
-            simpleDbBulletin.writeHitList(model);
+
+            simpleDbBulletin.writeGoodList(model);
         }catch (Exception e){ e.printStackTrace(); }
     }
 }

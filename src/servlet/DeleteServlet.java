@@ -16,7 +16,7 @@ public class DeleteServlet extends HttpServlet {
 
             SimpleDbBulletin simpleDbBulletin = new SimpleDbBulletin();
             simpleDbBulletin.deleteList(id);
-            simpleDbBulletin.deleteHitUserList(id);
+            simpleDbBulletin.deleteGoodUserList(id);
         }catch (Exception e){ e.printStackTrace(); }
     }
 }

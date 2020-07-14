@@ -3,7 +3,6 @@ package servlet;
 import com.google.gson.Gson;
 import database.SimpleDbBulletin;
 import model.BulletinGoodModel;
-import model.BulletinModel;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "GetHitUserServlet", urlPatterns = "/getHitUserServlet")
-public class GetHitUserServlet extends HttpServlet {
+@WebServlet(name = "GetGoodUserServlet", urlPatterns = "/getGoodUserServlet")
+public class GetGoodUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
             int id = Integer.parseInt(request.getParameter("id"));
 
             SimpleDbBulletin simpleDbBulletin = new SimpleDbBulletin();
-            List<BulletinGoodModel> list = simpleDbBulletin.getHitUserList(id);
+            List<BulletinGoodModel> list = simpleDbBulletin.getGoodUserList(id);
 
             Gson gson = new Gson();
             String jsonString = gson.toJson(list);

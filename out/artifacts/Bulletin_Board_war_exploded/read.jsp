@@ -29,7 +29,7 @@
         <script>
             $(document).ready(function() {
                 getList();
-                getHitUserList();
+                getGoodUserList();
             });
 
             function getList() {
@@ -46,7 +46,6 @@
                 $("#title").html(list.title);
                 $("#content").html(list.content);
                 $("#writer").html(list.writer);
-                $("#hitCount").html(list.hit);
 
                 if('<%=cookieId%>' !== 'null'){
                     if(list.writer.toString() != '<%=cookieId%>'){
@@ -56,30 +55,31 @@
                 }else{
                     document.getElementById("edit").style.display = 'none'
                     document.getElementById("delete").style.display = 'none'
-                    document.getElementById("addHit").style.display = 'none'
+                    document.getElementById("addGood").style.display = 'none'
                 }
             }
 
-            function getHitUserList(){
+            function getGoodUserList(){
                 let params = {
                     id : <%= id %>,
                 }
 
-                $.get("http://localhost:8080/getHitUserServlet", params, function(response) {
-                    showHitUserList(response)
+                $.get("http://localhost:8080/getGoodUserServlet", params, function(response) {
+                    showGoodUserList(response)
                 });
             }
 
-            function showHitUserList(list){
-                $("#hitUser").empty()
+            function showGoodUserList(list){
+                $("#goodUser").empty()
+                $("#goodCount").html(list.length);
 
-                if(list.length == 0) $("#hitUser").html("현재 좋아요를 누른 사람이 아무도 없습니다.");
+                if(list.length == 0) $("#goodUser").html("현재 좋아요를 누른 사람이 아무도 없습니다.");
                 else{
-                    $("#hitUser").append(" | ")
+                    $("#goodUser").append(" | ")
 
                     for(let i in list){
-                        $("#hitUser").append(list[i].writerId + " 님 | ")
-                        if(list[i].writerId == ('<%=cookieId%>')) document.getElementById("addHit").style.display = 'none'
+                        $("#goodUser").append(list[i].writerId + " 님 | ")
+                        if(list[i].writerId == ('<%=cookieId%>')) document.getElementById("addGood").style.display = 'none'
                     }
                 }
             }
@@ -95,13 +95,13 @@
                 })
             }
 
-            function addHit(){
+            function addGood(){
                 let params = {
                     id : <%= id %>,
                     cookieId : '<%=cookieId%>'
                 }
 
-                $.post("http://localhost:8080/addHitServlet", params, function (response) {
+                $.post("http://localhost:8080/addGoodServlet", params, function (response) {
                     location.reload()
                 })
             }
@@ -123,16 +123,16 @@
         </div>
         <div>
             <label>좋아요 갯수</label>
-            <span id="hitCount"></span>
+            <span id="goodCount"></span>
         </div>
         <div>
             <label>좋아요 유저</label>
-            <span id="hitUser"></span>
+            <span id="goodUser"></span>
         </div>
         <div>
             <input type="button" value="수정하기" id="edit" onclick="location.href = 'http://localhost:8080/modify.jsp?id=<%=id%>'">
             <input type="button" value="삭제하기" id="delete" onclick="deleteList()">
-            <input type="button" value="좋아요" id="addHit" onclick="addHit()">
+            <input type="button" value="좋아요" id="addGood" onclick="addGood()">
         </div>
     </body>
 </html>

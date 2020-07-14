@@ -172,57 +172,7 @@ public class SimpleDbBulletin {
         return id[0];
     }
 
-    public int getHit(int id) throws Exception{
-        int[] hit = new int[1];
-
-        defaultDb(new JdbcStrategy() {
-            @Override
-            public PreparedStatement makePreparedStatement(Connection con) throws SQLException {
-                StringBuilder sql = new StringBuilder();
-                sql.append("SELECT ");
-                sql.append("hit ");
-                sql.append("FROM bulletin ");
-                sql.append("WHERE id = ? ");
-
-                PreparedStatement pstmt = con.prepareStatement(sql.toString());
-                pstmt.setInt(1, id);
-
-                ResultSet rs = pstmt.executeQuery();
-                rs.next();
-
-                try{
-                    hit[0] = rs.getInt("hit");
-                }catch (Exception e){
-                    hit[0] = 0;
-                }
-
-                return pstmt;
-            }
-        });
-        return hit[0];
-    }
-
-    public void updateHit(int hit, int id) throws Exception{
-        int addHit = ++hit;
-
-        defaultDb(new JdbcStrategy() {
-            @Override
-            public PreparedStatement makePreparedStatement(Connection con) throws SQLException {
-                StringBuilder sql = new StringBuilder();
-                sql.append("UPDATE bulletin SET ");
-                sql.append("hit = ? ");
-                sql.append("WHERE id = ? ");
-
-                PreparedStatement pstmt = con.prepareStatement(sql.toString());
-                pstmt.setInt(1, addHit);
-                pstmt.setInt(2, id);
-
-                return pstmt;
-            }
-        });
-    }
-
-    public List<BulletinGoodModel> getHitUserList(int id) throws Exception{
+    public List<BulletinGoodModel> getGoodUserList(int id) throws Exception{
         List<BulletinGoodModel> list = new ArrayList<>();
 
         defaultDb(new JdbcStrategy() {
@@ -255,7 +205,7 @@ public class SimpleDbBulletin {
         return list;
     }
 
-    public void writeHitList(BulletinGoodModel model) throws Exception{
+    public void writeGoodList(BulletinGoodModel model) throws Exception{
         defaultDb(new JdbcStrategy() {
             @Override
             public PreparedStatement makePreparedStatement(Connection con) throws SQLException {
@@ -273,7 +223,7 @@ public class SimpleDbBulletin {
         });
     }
 
-    public void deleteHitUserList(int id) throws Exception{
+    public void deleteGoodUserList(int id) throws Exception{
         defaultDb(new JdbcStrategy() {
             @Override
             public PreparedStatement makePreparedStatement(Connection con) throws SQLException {

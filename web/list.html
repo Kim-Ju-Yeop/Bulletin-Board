@@ -15,7 +15,7 @@
                 border: 1px solid #CCC;
                 padding: 3px;
             }
-            #id, #hit{
+            #id{
                 width: 100px;
             }
             #title{
@@ -50,7 +50,6 @@
                 let tdId = $("<td />");
                 let tdTitle = $("<td />");
                 let tdWriter = $("<td />");
-                let tdHit = $("<td />");
 
                 let aTag = $("<a />");
                 aTag.html(list.title);
@@ -59,12 +58,10 @@
                 tdId.html(list.id);
                 tdTitle.append(aTag);
                 tdWriter.html(list.writer);
-                tdHit.html(list.hit);
 
                 tr.append(tdId);
                 tr.append(tdTitle);
                 tr.append(tdWriter);
-                tr.append(tdHit);
 
                 $("#list_body").append(tr);
             }
@@ -89,7 +86,6 @@
                     <th id="id">글번호</th>
                     <th id="title">제목</th>
                     <th id="writer">글쓴이</th>
-                    <th id="hit">좋아요</th>
                 </tr>
             </thead>
             <tbody id="list_body">
