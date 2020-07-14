@@ -90,7 +90,7 @@
                 }
 
                 $.get("http://localhost:8080/deleteServlet", params, function (response) {
-                    alert("글을 삭제를 정상적으로 수행하였습니다.")
+                    alert("글 삭제를 정상적으로 수행하였습니다.")
                     location.href = "list.html";
                 })
             }
