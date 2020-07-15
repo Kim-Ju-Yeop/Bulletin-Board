@@ -15,12 +15,10 @@ public class ModifyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
             int id = Integer.parseInt(request.getParameter("id"));
-            int hit = 0;
             String title = request.getParameter("title");
             String content = request.getParameter("content");
-            String writer = "글쓴이";
 
-            BulletinModel model = new BulletinModel(id, hit, title, content, writer);
+            BulletinModel model = new BulletinModel(id, title, content);
 
             SimpleDbBulletin bulletin = new SimpleDbBulletin();
             bulletin.updateList(model);

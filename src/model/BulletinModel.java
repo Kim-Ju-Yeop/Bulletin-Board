@@ -14,4 +14,10 @@ public class BulletinModel {
         this.content = content;
         this.writer = writer;
     }
+
+    public BulletinModel(int id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
 }
